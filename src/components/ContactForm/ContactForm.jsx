@@ -15,17 +15,15 @@ class ContactForm extends Component {
       
       for (let contact of this.props.contacts) {
       if (contact.name.toLowerCase() === this.state.name.toLowerCase()) {
-        this.reset();
         alert(`${contact.name} is already in contacts`);
         return;
         }
         if (contact.number.toLowerCase() === this.state.number.toLowerCase()) {
-          this.reset();
           alert(`${contact.number} is already in contacts`);
           return;
         }
     }
-
+      this.reset();
       return this.props.onSubmit(name, number);
   }
   reset() {
@@ -65,6 +63,17 @@ class ContactForm extends Component {
         );
     }
 }
+
+ContactForm.propTypes = {
+  contacts: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      number: PropTypes.string.isRequired,
+    })
+  ),
+  onSubmit: PropTypes.func.isRequired,
+};
 
 
 
