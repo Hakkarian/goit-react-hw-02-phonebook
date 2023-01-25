@@ -5,7 +5,7 @@ import ContactList from "components/ContactList";
 import Filter from "components/Filter";
 import { ContactFlexCss } from "./App.styled";
 
-
+const LS_KEY = "contacts";
 
 class App extends Component {
   state = {
@@ -17,6 +17,21 @@ class App extends Component {
     ],
     filter: "",
   };
+
+
+  componentDidMount() { 
+    const savedContacts = localStorage.getItem("contacts");
+    const parsedContacts = JSON.parse(savedContacts);
+    if (savedContacts) {
+      this.setState({contacts: parsedContacts})
+    }
+  }
+  componentDidUpdate(prevProps, prevState) { 
+    if (prevState.contacts !== this.state.contacts) {
+      localStorage.setItem("contacts", JSON.stringify(this.state.contacts))
+    }
+  } 
+
   addContact = (name, number) => {
     const contact = {
       id: nanoid(),
