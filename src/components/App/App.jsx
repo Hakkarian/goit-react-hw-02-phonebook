@@ -36,6 +36,8 @@ const App = () => {
 
   useEffect(() => {
       localStorage.setItem(LS_KEY, JSON.stringify(contacts));
+
+      return () => localStorage.removeItem(LS_KEY);
   }, [contacts]);
 
 
